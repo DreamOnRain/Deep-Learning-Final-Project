@@ -1,8 +1,22 @@
-# CS5242 Project Mamba
+# CS5242 Project
+
 
 ## About
-1. generates completions of a user-specified prompt,
-2. benchmarks the inference speed of this generation.
+
+Mamba is a new state space model architecture, we try to use it in prompt generation.
+Our work is:
+1. generate completions of a user-specified prompt,
+2. benchmark the inference speed of this generation,
+3. compare mamba with former architectures like transformer in generation quantity, number of parameters
+4. etc.
+
+## Installation
+
+Requirements:
+- mamba-ssm
+- PyTorch 1.12+
+- CUDA 11.6+
+
 
 ## Reference
 
