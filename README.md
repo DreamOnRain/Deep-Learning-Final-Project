@@ -25,3 +25,4 @@ Requirements:
 > Albert Gu*, Tri Dao*\
 > Paper: https://arxiv.org/abs/2312.00752
 
+https://github.com/Raul-A-P/mamba_Fin_ChapGPT
