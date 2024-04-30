@@ -3,12 +3,7 @@
 
 ## About
 
-Mamba is a new state space model architecture, we try to use it in prompt generation.
-Our work is:
-1. generate completions of a user-specified prompt,
-2. benchmark the inference speed of this generation,
-3. compare mamba with former architectures like transformer in generation quantity, number of parameters
-4. etc.
+Our study focuses on Mamba, an emerging text generation model that integrates the strengths of the long-range perception capabilities and transformers to address the efficiency and effectiveness of sequence modeling. Mamba employs structured state space models (SSMs) to optimize prompt responses and enhance mathematical reasoning capabilities. Our experiments demonstrate that Mamba outperforms traditional transformer models in computational efficiency and reasoning tasks by effectively balancing correlation and causality within sequence data. We further enhance the Mamba's capabilities in mathematical reasoning by fine-tuning it. This successfully validates that fine-tuning methods based on Parameter Efficient Fine-Tuning (PEFT) can strengthen the model's performance in specific domains. The findings suggest that Mamba's selective model architecture, focusing on context-aware sequence modeling, can significantly improve performance in natural language processing tasks, particularly in mathematical reasoning and prompt optimization. This research advances our understanding of sequence model architectures and sets a foundation for future explorations into efficient and effective language modeling.
 
 
 ## Usage
@@ -37,13 +32,9 @@ Requirements:
 
 ## Reference
 
-![Mamba](assets/selection.png "Selective State Space")
 > **Mamba: Linear-Time Sequence Modeling with Selective State Spaces**\
 > Albert Gu*, Tri Dao*\
 > Paper: https://arxiv.org/abs/2312.00752
-
-
-Original github: https://github.com/Raul-A-P/mamba_Fin_ChapGPT
 
 
 @article{mamba,
