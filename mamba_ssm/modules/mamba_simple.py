@@ -116,6 +116,16 @@ class Mamba(nn.Module):
 
         self.out_proj = nn.Linear(self.d_inner, self.d_model, bias=bias, **factory_kwargs)
 
+    def flops_selective_scan_fn(self, B=1, L=256, D=768, N=16, with_D=True, with_Z=False, with_Group=True, with_complex=False):
+        assert not with_complex 
+        # https://github.com/state-spaces/mamba/issues/110
+        flops = 9 * B * L * D * N
+        if with_D:
+            flops += B * D * L
+        if with_Z:
+            flops += B * D * L    
+        return flops
+
     def forward(self, hidden_states, inference_params=None):
         """
         hidden_states: (B, L, D)
@@ -203,6 +213,8 @@ class Mamba(nn.Module):
                 ssm_state.copy_(last_state)
             y = rearrange(y, "b d l -> b l d")
             out = self.out_proj(y)
+
+        print(flops_selective_scan_fn(B=B, L=L, D=D, N=N, with_D=True, with_Z=False, with_Group=True))
         return out
 
     def step(self, hidden_states, conv_state, ssm_state):

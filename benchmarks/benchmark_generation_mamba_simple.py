@@ -9,7 +9,7 @@ import torch.nn.functional as F
 
 from einops import rearrange
 
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, MambaForCausalLM
 
 from mamba_ssm.models.mixer_seq_simple import MambaLMHeadModel
 
@@ -19,10 +19,10 @@ parser.add_argument("--model-name", type=str, default="state-spaces/mamba-130m")
 parser.add_argument("--prompt", type=str, default=None)
 parser.add_argument("--promptlen", type=int, default=64)
 parser.add_argument("--genlen", type=int, default=64)
-parser.add_argument("--temperature", type=float, default=1.0)
+parser.add_argument("--temperature", type=float, default=0.7)
 parser.add_argument("--topk", type=int, default=1)
-parser.add_argument("--topp", type=float, default=1.0)
-parser.add_argument("--repetition-penalty", type=float, default=1.0)
+parser.add_argument("--topp", type=float, default=0.9)
+parser.add_argument("--repetition-penalty", type=float, default=1.2)
 parser.add_argument("--batch", type=int, default=1)
 args = parser.parse_args()
 
@@ -31,10 +31,10 @@ device = "cuda"
 dtype = torch.float16
 
 print(f"Loading model: {args.model_name}, prompt: {args.prompt}")
-is_mamba = args.model_name.startswith("state-spaces/mamba-")
+is_mamba = args.model_name.startswith("state-spaces/mamba-") or args.model_name.startswith("DreamOnRain/mamba-")
 if is_mamba:
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
-    model = MambaLMHeadModel.from_pretrained(args.model_name, device=device, dtype=dtype)
+    model = MambaForCausalLM.from_pretrained(args.model_name, device_map=device, torch_dtype=dtype)
 else:
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map={"": device}, torch_dtype=dtype)
@@ -55,10 +55,8 @@ if is_mamba:
     fn = lambda: model.generate(
         input_ids=input_ids,
         max_length=max_length,
-        cg=True,
         return_dict_in_generate=True,
         output_scores=True,
-        enable_timing=False,
         temperature=args.temperature,
         top_k=args.topk,
         top_p=args.topp,
