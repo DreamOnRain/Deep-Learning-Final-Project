@@ -48,6 +48,9 @@ python benchmarks/benchmark_generation_mamba_simple.py --model-name "${model_lis
 ![models performance](assets/rada2.png)
 
 
+## Conclusion
+Through our experiments, we successfully compared performance between models based on Mamba and transformers of multiple sizes and quantified the evaluation scores by the lm-evaluation-harness method. The results show that mamba outperforms transformer-based models, such as Pythia in our experiment, in both human evaluation and lm-evaluation. Furthermore, we fine-tuned Mamba with the Mathqa dataset and estimated its performance by the same experiment, which successfully verified that our experiments could improve the models’ scores to some extent. That means our experiments can guide the training of LLMs to do mathematical reasoning while giving correct reasoning. We are excited about the improvement of models in our experiment, especially in natural language processing. Our results suggest that fine-tuning models is a strong candidate to improve Mamba’s performance in mathematical reasoning.
+
 
 ## Reference
 
