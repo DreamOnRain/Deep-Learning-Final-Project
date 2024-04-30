@@ -29,7 +29,7 @@ Requirements:
 - PyTorch 1.12+
 - CUDA 11.6+
 
-
+![optional alt text](assets/poster.jpg)
 ## Reference
 
 > **Mamba: Linear-Time Sequence Modeling with Selective State Spaces**\
